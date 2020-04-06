@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
+import {Text, View, FlatList } from 'react-native';
 import styles from './style';
 import ContatoInput from './components/ContatoInput';
 import ContatoItem from './components/ContatoItem';
@@ -22,10 +22,8 @@ export default function App() {
         }, 
         ...contatos
       ];
-      
     });
-    
-    //console.log (lembrete);
+
   }
 
   const removerContato = (keyASerRemovida) => {
@@ -57,30 +55,3 @@ export default function App() {
     </View>
   );
 }
-
-// const styles = StyleSheet.create({
-//   telaPrincipalView: {
-//     padding: 50
-//   },
-//   lembreteView: {
-//     flexDirection: 'column',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     marginBottom: 6
-//   },
-//   lembreteTextInput: {
-//     width: '80%',
-//     borderBottomColor: 'black',
-//     borderBottomWidth: 1,
-//     marginBottom: 4,
-//     padding: 2
-//   },
-//   itemNaLista: {
-//     padding: 12,
-//     backgroundColor: '#CCC',
-//     borderColor: '#000',
-//     borderWidth: 1,
-//     marginBottom: 8,
-//     borderRadius: 8
-//   }
-// });

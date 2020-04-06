@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {View, TextInput, Button, TouchableOpacity, Text} from 'react-native';
+import React from 'react';
+import {View, TouchableOpacity, Text} from 'react-native';
 import styles from '../style';
 
 const ContatoItem = (props) => {

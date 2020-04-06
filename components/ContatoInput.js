@@ -11,27 +11,23 @@ const ContatoInput = (props) => {
   }
 
   const capturarTelefone = (textoDigitado) => {
-    // setContato({telefone: textoDigitado});
     setTelefone(textoDigitado)
   }
 
   return (
-    <View style={styles.lembreteView}>
+    <View style={styles.contatoView}>
         { /*Usuário irá inserir lembretes aqui */}
         <TextInput 
           placeholder="Nome..."
-          style={styles.lembreteTextInput}
+          style={styles.contatoTextInput}
           onChangeText={capturarNome}
           value={nome}
-          //defaultValue={contato.nome}
         />
         <TextInput 
           placeholder="Telefone..."
-          style={styles.lembreteTextInput}
+          style={styles.contatoTextInput}
           onChangeText={capturarTelefone}
-          //onChangeText={telefone => setContato({telefone : telefone})}
           value={telefone}
-          //defaultValue={contato.telefone}
         />
         <TouchableOpacity
           style={styles.datailsButton}
