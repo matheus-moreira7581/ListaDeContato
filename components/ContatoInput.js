@@ -1,0 +1,46 @@
+import React, { useState } from 'react';
+import {View, TextInput, Button, TouchableOpacity, Text} from 'react-native';
+import styles from '../style';
+
+const ContatoInput = (props) => {
+  const[nome, setNome] = useState ("");
+  const[telefone, setTelefone] = useState ("");
+
+  const capturarNome = (textoDigitado) => {
+    setNome(textoDigitado)
+  }
+
+  const capturarTelefone = (textoDigitado) => {
+    // setContato({telefone: textoDigitado});
+    setTelefone(textoDigitado)
+  }
+
+  return (
+    <View style={styles.lembreteView}>
+        { /*Usuário irá inserir lembretes aqui */}
+        <TextInput 
+          placeholder="Nome..."
+          style={styles.lembreteTextInput}
+          onChangeText={capturarNome}
+          value={nome}
+          //defaultValue={contato.nome}
+        />
+        <TextInput 
+          placeholder="Telefone..."
+          style={styles.lembreteTextInput}
+          onChangeText={capturarTelefone}
+          //onChangeText={telefone => setContato({telefone : telefone})}
+          value={telefone}
+          //defaultValue={contato.telefone}
+        />
+        <TouchableOpacity
+          style={styles.datailsButton}
+          onPress={() => {props.onAdicionarContato(nome, telefone)}}
+        >
+          <Text style={styles.detailsButtonText}>Cadastrar</Text>
+        </TouchableOpacity>
+      </View>
+  );
+}
+
+export default ContatoInput;
