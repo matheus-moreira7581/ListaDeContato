@@ -1,57 +1,68 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Text, View, FlatList } from 'react-native';
 import styles from './style';
-import ContatoInput from './components/ContatoInput';
-import ContatoItem from './components/ContatoItem';
+import PageIndex from './pages/index';
+import PageDetail from './pages/PageDetail'
 
 export default function App() {
-  const [contatos, setContatos] = useState ([]);
+  const [contatos, setContatos] = useState([]);
+  const [showPageDetail, setShowPageDetail] = useState(false);
 
-  const [contadorContatos, setContadorContatos] = useState(10);
+  const newContacts = useRef([]);
+  const contatoKey = useRef([]);
 
-  const adicionarContato = (nome, telefone) => {
-    console.log("Contato-Nome: " + nome);
-    console.log("Contato-Telefone: " + telefone);
-    setContatos (contatos => {
-      console.log (contatos);
-      setContadorContatos(contadorContatos + 2);
-      return [
-        {
-          key: contadorContatos.toString(),
-          value: {nome: nome, telefone: telefone}
-        }, 
-        ...contatos
-      ];
-    });
+  useEffect(() => {
+    newContacts.current = [...contatos];
+  },[contatos]);
+  
 
+  /*Valor e prevContatos são recebido da classe index.js 
+  prevContatos é setado no estado de contatos */
+  const atualizarShowPageDetail = (valor, key, prevContatos) => {
+    setContatos([...prevContatos]);
+    setShowPageDetail(valor);
+    contatoKey.current = key;
   }
 
-  const removerContato = (keyASerRemovida) => {
-    setContatos(contatos => {
-      return contatos.filter(contato => contato.key !== keyASerRemovida);
-    })
+  const pageDetail = (valor) => {
+    setShowPageDetail(valor);
+  }
+
+  const editarContato = (nome, telefone) => {
+    let arr = [...contatos];
+    let index = arr.findIndex((contato => contato.key === contatoKey.current));
+    if(index < 0) {
+      alert('nao existe esse contato para ser editado por favor tente novamente');
+    }
+    let objeto = arr[index];
+    
+
+    objeto.value.nome = nome;
+    objeto.value.telefone = telefone;
+   
+    arr[index] = objeto;
+
+    setContatos([...arr]);
+    setShowPageDetail(false);
+  }
+
+  const localizarContato = (keyDoContato) => {
+    let contact = contatos.filter(contato => contato.key === keyDoContato);
+    let objeto = contact.pop();
+    return objeto;
+}
+  
+  let conteudo = <PageIndex onShowingPageDetail={atualizarShowPageDetail} onUpdateContatos={newContacts.current}/>;
+
+  if(showPageDetail === true) {
+    let objeto = localizarContato(contatoKey.current);
+    conteudo = <PageDetail nome={objeto.value.nome} telefone={objeto.value.telefone} onShowPageDetail={pageDetail} onEditarContato={editarContato}/>
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.welcome}>
-        <Text style={styles.welcomeTitle}>Cadastre um nome e um telefone!</Text>
-      </View>
-      <ContatoInput 
-        onAdicionarContato={adicionarContato}
-      />
-      <FlatList 
-        data={contatos}
-        renderItem={
-          contato => (
-            <ContatoItem 
-              contato={contato.item.value}
-              chave={contato.item.key}
-              onDelete={removerContato}
-            />
-          )
-        }
-      />
+      {conteudo}
     </View>
+     
   );
 }

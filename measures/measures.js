@@ -1,7 +1,8 @@
 export default {
+  containerPaddingV: 24,
   containerPaddingH: 24,
   containerMarginT: 40,
-  titleMarginT: 100,
+  titleMarginT: 50,
   fontTitle: 24,
   fontText: 14,
   cardPadding: 24,

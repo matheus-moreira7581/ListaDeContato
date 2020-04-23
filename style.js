@@ -15,7 +15,6 @@ export default StyleSheet.create({
     backgroundColor: Cores.primary,
     marginVertical: Medidas.cardMargin,
     flexDirection: "column",
-    alignItems: "center",
     justifyContent: "center",
   },
   contatoTextInput: {
@@ -33,18 +32,10 @@ export default StyleSheet.create({
 
   },
   itemNaLista: {
-    padding: Medidas.cardPadding,
     marginBottom: Medidas.cardMargin,
+    alignItems: 'baseline',
     borderRadius: Medidas.cardBorderRadius,
     backgroundColor: Cores.primary,
-    shadowColor: Cores.shadow,
-    shadowOffset: {
-      width: Medidas.cardShadowWidth,
-      height: Medidas.cardShadowHeight
-    },
-    shadowRadius: Medidas.cardShadowRadius,
-    shadowOpacity: Medidas.cardShadowOpacity,
-    elevation: Medidas.cardElevation,
   },
   listaTitle: {
       fontSize: Medidas.fontText,

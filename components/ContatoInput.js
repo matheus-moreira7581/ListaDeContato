@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {View, TextInput, Button, TouchableOpacity, Text} from 'react-native';
+import {TextInput, TouchableOpacity, Text} from 'react-native';
+import Cartao from './Cartao'
 import styles from '../style';
 
 const ContatoInput = (props) => {
@@ -15,8 +16,8 @@ const ContatoInput = (props) => {
   }
 
   return (
-    <View style={styles.contatoView}>
-        { /*Usuário irá inserir lembretes aqui */}
+    <Cartao estilos={styles.contatoView}>
+       { /*Usuário irá inserir lembretes aqui */}
         <TextInput 
           placeholder="Nome..."
           style={styles.contatoTextInput}
@@ -35,7 +36,7 @@ const ContatoInput = (props) => {
         >
           <Text style={styles.detailsButtonText}>Cadastrar</Text>
         </TouchableOpacity>
-      </View>
+    </Cartao>
   );
 }
 
