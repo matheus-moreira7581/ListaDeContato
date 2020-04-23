@@ -26,7 +26,7 @@ const ContatoItem = (props) => {
       <TouchableOpacity 
         onLongPress={deleteAlert}
         onPress={() => {props.onShowPageDetail(true, props.chave)}}
-        style={{width: '50%'}}
+        style={{width: '100%'}}
       >
         <View>
           <Text style={styles.listaTitle}>{"Nome: " + props.contato.nome}</Text>
