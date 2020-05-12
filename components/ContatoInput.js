@@ -15,6 +15,12 @@ const ContatoInput = (props) => {
     setTelefone(textoDigitado)
   }
 
+  const handleAdicionarContatos = () => {
+    props.onAdicionarContato(nome, telefone);
+    setNome("");
+    setTelefone("");
+  }
+
   return (
     <Cartao estilos={styles.contatoView}>
        { /*Usuário irá inserir lembretes aqui */}
@@ -32,7 +38,7 @@ const ContatoInput = (props) => {
         />
         <TouchableOpacity
           style={styles.datailsButton}
-          onPress={() => {props.onAdicionarContato(nome, telefone)}}
+          onPress={handleAdicionarContatos}
         >
           <Text style={styles.detailsButtonText}>Cadastrar</Text>
         </TouchableOpacity>

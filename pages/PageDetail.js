@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {StackActions, NavigationActions} from 'react-navigation'
 import Cartao from '../components/Cartao';
 import styles from '../style';
 import Cores from '../colors/colors';
 import Medidas from '../measures/measures';
 
 const PageDetail = (props) => {
+  const {navigation} = props;
+  const {params} = props.navigation.state;
   const [editable, setEditable] = useState(false);
-  const [nome, setNome] = useState(props.nome);
-  const [telefone, setTelefone] = useState(props.telefone);
+  const name = navigation.getParam('nome');
+  const tel = navigation.getParam('telefone');
+  const chave = navigation.getParam('key');
+  const [nome, setNome] = useState(name);
+  const [telefone, setTelefone] = useState(tel);
 
   const capturarNome = (textoDigitado) => {
     setNome(textoDigitado)
@@ -18,12 +24,19 @@ const PageDetail = (props) => {
     setTelefone(textoDigitado)
   }
 
+
+
+  const atualizarContatoOnIndex = () => {
+    params.onEditarContato(chave, nome, telefone)
+    navigation.navigate('TelaInicial');
+  }
+
   return (
-    <View>
+    <View style={styles.container}>
       <View style={estilo.containerBotaoVoltar}>
         <TouchableOpacity 
           style={estilo.touchableVoltar}
-          onPress={() => {props.onShowPageDetail(false)}}
+          onPress={() => navigation.goBack()}
         >
           <Text>Voltar</Text>
         </TouchableOpacity>
@@ -51,7 +64,7 @@ const PageDetail = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{...styles.datailsButton, ...estilo.button}}
-              onPress={() => {props.onEditarContato(nome, telefone)}}
+              onPress={atualizarContatoOnIndex}
             >
               <Text>Confirmar</Text>
             </TouchableOpacity>

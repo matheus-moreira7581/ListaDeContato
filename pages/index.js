@@ -6,28 +6,14 @@ import ContatoItem from '../components/ContatoItem';
 
 const PageIndex = (props) => {
 
+  const {navigation} = props;
+
   const [contatos, setContatos] = useState([]);
 
   const [contadorContatos, setContadorContatos] = useState(10);
-  
-  const prevContatos = useRef([]);
 
-  useEffect(() => {
-    let newContatos = [...props.onUpdateContatos];
-    // console.log('//////////////////////////////////////////////////////////////////////')
-    // console.log(newContatos);
-    setContatos([...newContatos]);
-  },[])
-/*useEffect que observa a mudança no estado 
-de contato e atribui a useRef de prevContatos */
-  useEffect(() => {
-    prevContatos.current = [...contatos];
-  },[contatos]);
-
- /*valor de se a pagina de detail deve ser mostrada 
- ou nao é o estado de prevContatos é enviado para classe pai App.js */ 
-  const atualizaShowingPageDetail = (valor, key) => {
-    props.onShowingPageDetail(valor, key, prevContatos.current);
+  const atualizaShowingPageDetail = (key, nome, telefone) => {
+    navigation.navigate('TelaDetalhes', {key: key, nome: nome, telefone: telefone, onEditarContato: editarContato});
   }
   
 
@@ -45,7 +31,7 @@ de contato e atribui a useRef de prevContatos */
         ...contatos
       ];
     });
-    // console.log (contatos);
+
 
   }
 
@@ -55,12 +41,32 @@ de contato e atribui a useRef de prevContatos */
     })
   }
 
+  const editarContato = (key, nome, telefone) => {
+    let arr = [...contatos];
+    let index = arr.findIndex((contato => contato.key === key));
+    if(index < 0) {
+      alert('nao existe esse contato para ser editado por favor tente novamente');
+    }else {
+      let objeto = arr[index];
+
+      console.log(objeto);
+      
+
+      objeto.value.nome = nome;
+      objeto.value.telefone = telefone;
+    
+      arr[index] = objeto;
+
+      setContatos([...arr]);
+    }
+  }
+
 
 
  
 
   return ( 
-    <View>
+    <View style={styles.container}>
       <View style={styles.welcome}>
         <Text style={styles.welcomeTitle}>Cadastre um nome e um telefone!</Text>
       </View>
@@ -84,5 +90,7 @@ de contato e atribui a useRef de prevContatos */
     </View>
   );
 }
+
+
 
 export default PageIndex;
