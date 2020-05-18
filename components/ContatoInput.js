@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {TextInput, TouchableOpacity, Text} from 'react-native';
 import Cartao from './Cartao'
 import styles from '../style';
+import TirarFoto from './TirarFoto';
 
 const ContatoInput = (props) => {
   const[nome, setNome] = useState ("");
   const[telefone, setTelefone] = useState ("");
+  const [imagemURI, setImagemURI] = useState();
+
+  const fotoRef = useRef(null);
 
   const capturarNome = (textoDigitado) => {
     setNome(textoDigitado)
@@ -15,10 +19,15 @@ const ContatoInput = (props) => {
     setTelefone(textoDigitado)
   }
 
+  const fotoTirada = imagemURI => {
+    setImagemURI(imagemURI);
+  }
+
   const handleAdicionarContatos = () => {
-    props.onAdicionarContato(nome, telefone);
+    props.onAdicionarContato(nome, telefone, imagemURI);
     setNome("");
     setTelefone("");
+    fotoRef.current.resetImage();
   }
 
   return (
@@ -35,6 +44,11 @@ const ContatoInput = (props) => {
           style={styles.contatoTextInput}
           onChangeText={capturarTelefone}
           value={telefone}
+        />
+        <TirarFoto 
+          onFotoTirada={fotoTirada}
+          imagemURI={imagemURI}
+          ref={fotoRef}
         />
         <TouchableOpacity
           style={styles.datailsButton}

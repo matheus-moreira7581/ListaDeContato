@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {StackActions, NavigationActions} from 'react-navigation'
 import Cartao from '../components/Cartao';
+import TirarFoto from '../components/TirarFoto';
 import styles from '../style';
 import Cores from '../colors/colors';
 import Medidas from '../measures/measures';
@@ -13,8 +14,10 @@ const PageDetail = (props) => {
   const name = navigation.getParam('nome');
   const tel = navigation.getParam('telefone');
   const chave = navigation.getParam('key');
+  const imagem = navigation.getParam('image');
   const [nome, setNome] = useState(name);
   const [telefone, setTelefone] = useState(tel);
+  const [imagemURI, setImagemURI] = useState(imagem);
 
   const capturarNome = (textoDigitado) => {
     setNome(textoDigitado)
@@ -24,10 +27,14 @@ const PageDetail = (props) => {
     setTelefone(textoDigitado)
   }
 
+  const fotoTirada = imagemURI => {
+    setImagemURI(imagemURI);
+  }
+
 
 
   const atualizarContatoOnIndex = () => {
-    params.onEditarContato(chave, nome, telefone)
+    params.onEditarContato(chave, nome, telefone, imagemURI)
     navigation.navigate('TelaInicial');
   }
 
@@ -54,6 +61,10 @@ const PageDetail = (props) => {
             editable={editable}
             value={telefone}
             onChangeText={capturarTelefone}
+          />
+          <TirarFoto 
+            onFotoTirada={fotoTirada}
+            imagemURI={imagemURI}
           />
           <View style={estilo.containerButton}>
             <TouchableOpacity

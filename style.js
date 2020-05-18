@@ -37,16 +37,34 @@ export default StyleSheet.create({
     borderRadius: Medidas.cardBorderRadius,
     backgroundColor: Cores.primary,
   },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   listaTitle: {
       fontSize: Medidas.fontText,
       color: Cores.textPrimary,
       fontWeight: 'bold',
+      marginLeft: 20,
   },
 
   listaPhone: {
       marginTop: Medidas.cardTextMargin,
       fontSize: Medidas.fontText,
       color: Cores.textSecondary,
+      marginLeft: 20,
+  },
+  listaImagemContainer: {
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 20,
+  },
+  listaImagem: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
   },
   datailsButton: {
     borderRadius: Medidas.buttonBorderRadius,
